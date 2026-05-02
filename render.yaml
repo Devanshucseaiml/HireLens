@@ -1,0 +1,19 @@
+services:
+  - name: hirelens-api
+    type: web
+    env: node
+    plan: free
+    repo: https://github.com/Devanshucseaiml/HireLens.git
+    branch: main
+    root: server
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "5001"
