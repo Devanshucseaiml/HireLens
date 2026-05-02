@@ -46,7 +46,7 @@ curl -X DELETE http://localhost:5001/api/resume/session/YOUR_SESSION_ID
 | Requests/day  | 1,500              |
 | Requests/min  | 15                 |
 | Tokens/min    | 1,000,000          |
-| Cost          | $0 (free forever)  |
+| Cost          | ₹0 (free forever)  |
 
 ## Gemini Notes
 
