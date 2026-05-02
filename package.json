@@ -1,0 +1,10 @@
+{
+  "name": "resume-analyzer",
+  "version": "1.0.0",
+  "description": "Resume analyzer with AI-powered analysis",
+  "private": true,
+  "scripts": {
+    "build": "cd client && npm run build",
+    "preview": "cd client && npm run preview"
+  }
+}
