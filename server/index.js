@@ -57,11 +57,9 @@ const app = express();
 // ── Middleware stack ────────────────────────────────────────
 
 // 1. CORS — allow Vite (5173) + fallback
+// TEMP: Allow all origins for debugging (will restrict once CORS issues resolved)
 app.use(cors({
-  origin:
-    process.env.NODE_ENV === 'production'
-      ? process.env.CLIENT_ORIGIN
-      : ['http://localhost:5173', 'http://localhost:3000'],
+  origin: true,
   methods: ['GET', 'POST', 'DELETE'],
   allowedHeaders: ['Content-Type'],
 }));
