@@ -13,6 +13,8 @@ services:
         sync: false
       - key: JWT_SECRET
         sync: false
+      - key: CLIENT_ORIGIN
+        value: https://resume-analyzer-beta-rose.vercel.app
       - key: NODE_ENV
         value: production
       - key: NODE_VERSION
