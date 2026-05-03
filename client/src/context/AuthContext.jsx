@@ -2,6 +2,9 @@ import { createContext, useState, useCallback, useEffect } from 'react'
 import axios from 'axios'
 
 const AuthContext = createContext()
+const authApiBase = import.meta.env.VITE_API_URL
+  ? `${import.meta.env.VITE_API_URL}/api/auth`
+  : '/api/auth'
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null)
@@ -24,7 +27,7 @@ export const AuthProvider = ({ children }) => {
     const checkAuth = async () => {
       if (token) {
         try {
-          const { data } = await axios.get('/api/auth/me')
+          const { data } = await axios.get(`${authApiBase}/me`)
           setUser(data.user)
         } catch (err) {
           setToken(null)
@@ -38,7 +41,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = useCallback(async (email, password) => {
     try {
-      const { data } = await axios.post('/api/auth/register', { email, password })
+      const { data } = await axios.post(`${authApiBase}/register`, { email, password })
       setToken(data.token)
       setUser(data.user)
       return data.user
@@ -50,7 +53,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = useCallback(async (email, password) => {
     try {
-      const { data } = await axios.post('/api/auth/login', { email, password })
+      const { data } = await axios.post(`${authApiBase}/login`, { email, password })
       setToken(data.token)
       setUser(data.user)
       return data.user
