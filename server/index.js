@@ -56,20 +56,15 @@ const app = express();
 
 // ── Middleware stack ────────────────────────────────────────
 
-// 1. CORS — allow Vite (5173) + fallback
-// TEMP: Allow all origins for debugging (will restrict once CORS issues resolved)
-app.use(cors({
-  origin: '*',
-  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization'],
-  credentials: false,
-}));
+// 1. CORS — explicit headers middleware (handle credentials properly)
 
-// Explicit CORS header fallback
+// Explicit CORS header fallback (handle credentials)
 app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*');
+  const origin = req.get('origin') || '*';
+  res.header('Access-Control-Allow-Origin', origin);
   res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
   res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
   if (req.method === 'OPTIONS') {
     res.sendStatus(200);
   } else {
