@@ -59,10 +59,23 @@ const app = express();
 // 1. CORS — allow Vite (5173) + fallback
 // TEMP: Allow all origins for debugging (will restrict once CORS issues resolved)
 app.use(cors({
-  origin: true,
-  methods: ['GET', 'POST', 'DELETE'],
-  allowedHeaders: ['Content-Type'],
+  origin: '*',
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: false,
 }));
+
+// Explicit CORS header fallback
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  if (req.method === 'OPTIONS') {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
 
 // 2. Body parsers
 app.use(express.json({ limit: '1mb' }));
